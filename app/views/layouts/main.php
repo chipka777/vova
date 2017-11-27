@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
 
-    <link rel="stylesheet" href="styles/styles.css" type="text/css"/>
+    <link rel="stylesheet" href="styles/app.css" type="text/css"/>
 
 
 </head>
@@ -19,15 +19,6 @@
     <div class="row">
         <div class="col-md-12">
         <a href="/logout" class="btn btn-danger">Logout</a>
-        <span class="api-info" id="api-info">
-            <?php
-
-            if(isset($_SESSION['api_info'])) {
-                 echo $_SESSION['api_info'];
-            }
-            unset($_SESSION['api_info']);
-            ?>
-        </span>
         </div>
     </div>
     <br />
