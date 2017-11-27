@@ -1,0 +1,48 @@
+.actions a:hover {
+    text-decoration: none;
+    color: #000;
+}
+
+.actions {
+    width: 100px;
+}
+
+.actions a {
+    margin-left: 5px;
+}
+
+.logs-body-style {
+    height: 400px;
+    overflow-x: hidden;
+}
+
+.logs-body-style .log-item {
+    width: 99%;
+    border-bottom: 3px solid #ccc;
+    margin-bottom: 20px;
+}
+
+.logs-header {
+    font-weight: bold;
+}
+
+.new-message-info-style, .available-holders-style {
+    border-bottom: 3px solid #ccc;
+    margin-bottom: 20px;
+}
+
+.new-message-class {
+    resize: none;
+}
+
+.formated-message {
+    margin-top: 20px;
+    border-radius: 5px;
+    border: 2px solid #aaa;
+    min-height: 20px;
+    padding: 10px;
+}
+
+.api-info {
+    font-size: 20px;
+}

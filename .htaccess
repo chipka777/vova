@@ -1,0 +1,5 @@
+RewriteEngine on
+RewriteCond %{HTTP_HOST} ^rings:85$ [NC,OR]
+RewriteCond %{HTTP_HOST} ^www.rings:85$
+RewriteCond %{REQUEST_URI} !public/
+RewriteRule (.*) /public/$1 [L]
