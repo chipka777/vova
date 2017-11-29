@@ -7,8 +7,8 @@ require_once '../vendor/autoload.php';
 $route = new Core\Route;
 
 
-$route->get('/auth', 'AuthController@auth');
-$route->post('/auth-check', 'AuthController@authCheck');
+$route->get('/login', 'AuthController@show');
+$route->post('/login', 'AuthController@login');
 
 $route->group(['middleware' => ['auth']], function () use ($route) {
     $route->get('/', 'HomeController@index');

@@ -11,24 +11,24 @@ class Route
     {
         $path = explode('?', $_SERVER["REQUEST_URI"]);
         $path = $path[0];
+
+        $method = $_SERVER['REQUEST_METHOD'];
+
         foreach ($this->routes as $route) {
-            if ($route['route'] == $path ) {
+            if ($route['route'] == $path && $route['method'] == $method) {
                 $class = $route['action'][0];
                 $action = $route['action'][1];
 
                 $obj = new $class;
 
                 if (isset($route['middleware'])) {
-                    $wares = [];
-
                     foreach($route['middleware'] as $middleware) {
                         $class = '\\App\\Middlewares\\' . ucfirst($middleware);
                         $ware = new $class;
-                        $wares[] = $ware;
                         $ware->before();
                     }
                 }
-
+            
                 $obj->$action($route['data']);
 
             }
@@ -45,7 +45,7 @@ class Route
         foreach ($_GET as $key => $value) {
             $get[$key] = htmlspecialchars(trim($value));
         }
-        $this->routes[] = ['route' => $route, 'action' => $action, 'data' => $get];
+        $this->routes[] = ['route' => $route, 'action' => $action, 'data' => $get, 'method' => 'GET'];
     }
 
     public function post($route, $action)
@@ -64,7 +64,7 @@ class Route
             }
 
         }
-        $this->routes[] = ['route' => $route, 'action' => $action, 'data' => $post];
+        $this->routes[] = ['route' => $route, 'action' => $action, 'data' => $post, 'method' => 'POST'];
     }
 
     public function group($args = [], $callback)

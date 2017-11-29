@@ -12,11 +12,13 @@ class Auth
      */
     public function before()
     {
-        $user = require_once (__DIR__ . '/../../config/user.php');
+
+        if (1) header('Location: /login');
+       /* $user = require_once (__DIR__ . '/../../config/user.php');
         if(trim(strtolower($_SESSION['login']) != $user['auth']['login'])) {
             header('Location: /auth');
             exit;
-        }
+        }*/
     }
 
 

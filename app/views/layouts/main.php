@@ -5,23 +5,13 @@
     <!-- bootstrap css CDN -->
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-
-
-    <link rel="stylesheet" href="styles/app.css" type="text/css"/>
+    <link rel="stylesheet" href="/css/app.css" type="text/css"/>
 
 
 </head>
 <body>
 
-<br />
-
 <div class="container">
-    <div class="row">
-        <div class="col-md-12">
-        <a href="/logout" class="btn btn-danger">Logout</a>
-        </div>
-    </div>
-    <br />
     <?php require_once (__DIR__ . '/../' . $content . '.php'); ?>
 </div>
 
@@ -42,7 +32,7 @@
 
 
 
-<script type="text/javascript" src="js/developer.js"></script>
+<script type="text/javascript" src="/js/app.js"></script>
 
 <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap.min.js"></script>

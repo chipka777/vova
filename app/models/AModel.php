@@ -6,25 +6,149 @@ abstract class AModel
 {
     protected $tableName;
 
+    protected $queryParams = [];
 
-    /**
-     * @param int $id
-     * @param array $params
-     * @return mixed
-     */
-    public function editByID($id, $params = [])
+    protected $queryString;
+
+    public static function find($id) 
     {
-        $queryString = 'UPDATE `' . $this->tableName . '` SET ';
-        foreach ($params as $key => $value) {
-            $queryString .= '`' . $key . '`' . '=:' . $key . ', ';
+        $class =  get_called_class();
+        $obj = new $class;
+        $queryString = 'SELECT * FROM `' . $obj->tableName . '` WHERE `id`=:id LIMIT 1';
+
+        $params = [
+            ':id' => $id
+        ];
+
+        $result = $obj->getResult($queryString, $params)->fetch();
+
+        foreach ($obj->fillable as $field) {
+            $obj->$field = $result[$field];
+        } 
+
+        return $obj;
+    }
+
+    public static function where($field, $operand, $value) 
+    {
+        if (empty($operand)) $operand = '=';
+
+        $class = get_called_class();
+
+        $obj = new $class;
+
+        $obj->queryString = 'WHERE `' . $field . '`' . $operand . ':' . $field;
+
+        $obj->queryParams[] = $field . ':' .  $value; 
+
+        return $obj;
+    }
+
+    public function andWhere($field, $operand, $value) 
+    {
+        if (empty($operand)) $operand = '=';
+
+        $this->queryString .= ' AND `' . $field . '`' . $operand . ':' . $field;
+        $this->queryParams[] = $field . ':' .  $value; 
+
+        return $this;
+    }
+
+    public function get()
+    {
+        $query = 'SELECT * FROM `' . $this->tableName . '`' . $this->queryString;
+
+        $params = [];
+
+        foreach ($this->queryParams as $param) {
+            $par = $this->parse($param);
+            $params[':' . $par[0]] = $par[1]; 
         }
 
-        $queryString = substr($queryString, 0, -2);
-        $queryString .= ' WHERE `id`=:id';
+        $result = $this->getResult($query, $params)->fetchAll();
 
-        $params[':id'] = $id;
+        return $result;   
+         
+    }
 
-        return $this->getResult($queryString, $params)->rowCount();
+    public function first()
+    {
+        $query = 'SELECT * FROM `' . $this->tableName . '`' . $this->queryString . ' LIMIT 1';
+
+        $params = [];
+
+        foreach ($this->queryParams as $param) {
+            $par = $this->parse($param);
+            $params[':' . $par[0]] = $par[1]; 
+        }
+
+    
+        $result = $this->getResult($query, $params)->fetch();
+
+        foreach ($this->fillable as $field) {
+            $this->$field = $result[$field];
+        } 
+
+        return $this;
+         
+    }
+
+    public function firstOrFail()
+    {
+        
+        $query = 'SELECT * FROM `' . $this->tableName . '`' . $this->queryString . ' LIMIT 1';
+
+        $params = [];
+
+        foreach ($this->queryParams as $param) {
+            $par = $this->parse($param);
+            $params[':' . $par[0]] = $par[1]; 
+        }
+
+    
+        $result = $this->getResult($query, $params)->fetch();
+    
+
+        foreach ($this->fillable as $field) {
+            $this->$field = $result[$field];
+        } 
+
+        return $this;
+         
+    }
+
+    public function create() 
+    {
+        $query = "INSERT INTO `$this->tableName`(";
+
+        $values = '(';
+
+        foreach ($this->fillable as $field) {
+            $values .=  ' "' . htmlspecialchars($this->$field) . '",';
+            $query .= " `$field`,";
+        }
+
+        $values = substr($values, 0, -1);
+        $query = substr($query, 0, -1);        
+        $query.= ") VALUES $values )";
+
+        return $this->getResult($query)->rowCount();
+        
+    }
+
+    public function update() 
+    {
+        $query = "UPDATE `$this->tableName` SET ";
+
+        foreach ($this->fillable as $field) {
+            $query .= "`$field` = '" . htmlspecialchars($this->$field) . "',";
+        }
+
+        $query = substr($query, 0, -1);        
+        $query.= " WHERE id = " . $this->id;
+
+        return $this->getResult($query)->rowCount();
+        
     }
 
     /**
@@ -55,35 +179,6 @@ abstract class AModel
 
         return $this->getResult($queryString)->rowCount();
     }
-
-
-    /**
-     * Get all rows from table
-     * @return mixed
-     */
-    public function getAll()
-    {
-        $queryString = 'SELECT * FROM `' . $this->tableName . '`';
-
-        return $this->getResult($queryString)->fetchAll();
-    }
-
-    /**
-     * Get record by it's ID
-     * @param integer $id
-     * @return mixed
-     */
-    public function getOneByID($id)
-    {
-        $queryString = 'SELECT * FROM `' . $this->tableName . '` WHERE `id`=:id LIMIT 1';
-
-        $params = [
-            ':id' => $id
-        ];
-
-        return $this->getResult($queryString, $params)->fetch();
-    }
-
 
     /**
      * Executing SQL request
@@ -123,6 +218,11 @@ abstract class AModel
             $final = substr($str, 0, -1);
         }
         return $final;
+    }
+
+    public function parse($str, $symbol = ':')
+    {
+        return explode($symbol, $str);
     }
 
 }

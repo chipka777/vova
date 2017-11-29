@@ -13,7 +13,9 @@ abstract class AController
      */
     public function render($content, $data = [])
     {
-        require_once ('../app/views/layouts/main.php');
+        if (empty($data['layout'])) $data['layout'] = 'main';
+
+        require_once ('../app/views/layouts/' . $data['layout'] . '.php');
     }
 
     /**

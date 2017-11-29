@@ -4,13 +4,28 @@ namespace App\Controllers;
 
 
 use Core\AController;
+use Core\Auth;
+use App\Models\User;
 
 class AuthController extends AController
 {
 
-    public function auth()
+    public function show()
     {
-        $this->render('auth');
+        $this->render('login', ['layout' => 'auth']);
+    }
+
+    public function login($request)
+    {
+       $user = User::where('email', '=' , $request['email'])->first();
+
+       
+       if (password_verify($request['password'], $user->password)) {
+           Auth::user($user);
+           var_dump(Auth::user()->name);
+       } else {
+           echo "no login";
+       }
     }
 
     public function authCheck($post)
