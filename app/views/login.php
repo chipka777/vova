@@ -3,6 +3,11 @@
     <img id="profile-img" class="profile-img-card" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" />
     <p id="profile-name" class="profile-name-card"></p>
     <form class="form-signin" method="POST" action="/login">
+        <?php if(isset($_SESSION['error'])) : ?>
+        <div class="alert alert-danger">
+            <?=$_SESSION['error']?>
+        </div>
+        <?php endif; ?>
         <span id="reauth-email" class="reauth-email"></span>
         <input type="email" name="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
         <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password" required>
@@ -17,3 +22,4 @@
         Forgot the password?
     </a>-->
 </div><!-- /card-container -->
+

@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use Core\AController;
 use App\Models\User;
+use Core\Auth;
 
 class HomeController extends AController
 {
@@ -26,8 +27,9 @@ class HomeController extends AController
         
 
         $user->din();*/
+ 
        
-        $this->render('login', ['layout' => 'auth']);
+        return $this->render('admin/index', ['layout' => 'admin']);
     }
 
 

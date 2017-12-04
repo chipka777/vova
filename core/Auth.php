@@ -7,7 +7,7 @@ class Auth
 
     private static  $instance;
 
-    public $user;
+    public $user = null;
 
     private function __construct()
     {
@@ -16,9 +16,23 @@ class Auth
 
     public function userAuth($user = null)
     {
-        if ($user != null) $this->user = $user[0];
+        if ($user != null) {
+            $this->user = $user[0];
+
+            $_SESSION['user'] = [
+                'name' => $this->user->name,
+                'id'   => $this->user->id
+            ];
+        }
 
         return $this->user;
+    }
+
+    public function logoutAuth()
+    {
+        $this->user = null;
+
+        unset($_SESSION['user']);
     }
 
     public static function __callStatic ( string $name , array $arguments )

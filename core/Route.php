@@ -2,6 +2,9 @@
 
 namespace Core;
 
+use App\Models\User;
+
+
 class Route
 {
 
@@ -9,6 +12,8 @@ class Route
 
     public function run()
     {
+        $this->setUser();
+
         $path = explode('?', $_SERVER["REQUEST_URI"]);
         $path = $path[0];
 
@@ -31,6 +36,8 @@ class Route
             
                 $obj->$action($route['data']);
 
+               
+                
             }
         }
 
@@ -91,5 +98,12 @@ class Route
     public function parse($action)
     {
         return explode('@', $action);
+    }
+
+    public function setUser()
+    {
+        if (isset($_SESSION['user'])) {
+            Auth::user(User::find($_SESSION['user']['id']));
+        }
     }
 }

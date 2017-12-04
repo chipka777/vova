@@ -12,20 +12,32 @@ class AuthController extends AController
 
     public function show()
     {
+        if (Auth::user()) return $this->redirect('/');
+
         $this->render('login', ['layout' => 'auth']);
     }
 
     public function login($request)
     {
+    
        $user = User::where('email', '=' , $request['email'])->first();
 
-       
        if (password_verify($request['password'], $user->password)) {
            Auth::user($user);
-           var_dump(Auth::user()->name);
+           return $this->redirect('/');
        } else {
-           echo "no login";
+           
+           $this->flashMsg('error', 'User with such data does not exist');
+           return $this->redirect('login');
        }
+    }
+
+
+    public function logout()
+    {
+        Auth::logout();
+
+        return $this->redirect('login');
     }
 
     public function authCheck($post)
@@ -42,12 +54,5 @@ class AuthController extends AController
         exit;
     }
 
-    public function logout()
-    {
-        unset($_SESSION['login']);
-        session_destroy();
 
-        header('Location: /auth');
-        exit;
-    }
 }

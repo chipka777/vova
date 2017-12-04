@@ -2,8 +2,15 @@
 
 namespace Core;
 
+
+
 abstract class AController
 {
+
+
+    protected $redirectUrl;
+
+    protected $flashMsgs = [];
 
     protected $logPath = __DIR__ . '/../logs/logs.txt';
 
@@ -13,9 +20,14 @@ abstract class AController
      */
     public function render($content, $data = [])
     {
+
         if (empty($data['layout'])) $data['layout'] = 'main';
 
+        $user = Auth::user();
+        
         require_once ('../app/views/layouts/' . $data['layout'] . '.php');
+
+        $this->clearFlashCache();
     }
 
     /**
@@ -29,6 +41,29 @@ abstract class AController
         $logs = file_get_contents($this->logPath);
         $logs .= $logString;
         file_put_contents($this->logPath, $logs);
+    }
+
+    public function flashMsg($name, $msg)
+    {
+        $_SESSION[$name] = $msg;
+        $_SESSION[$name . '_flash'] = $msg;
+
+    }
+
+    public function clearFlashCache()
+    {
+        foreach ($_SESSION as $name => $value) {
+            if (isset($_SESSION[$name . '_flash'])){
+                 unset($_SESSION[$name]);
+                 unset($_SESSION[$name . '_flash']);
+            }
+           
+        }
+    }
+
+    public function redirect($url, $data = false)
+    {
+        header('Location: ' . $url);
     }
 
 }

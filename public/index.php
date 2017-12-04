@@ -10,6 +10,8 @@ $route = new Core\Route;
 $route->get('/login', 'AuthController@show');
 $route->post('/login', 'AuthController@login');
 
+$route->post('/logout', 'AuthController@logout');
+
 $route->group(['middleware' => ['auth']], function () use ($route) {
     $route->get('/', 'HomeController@index');
     $route->get('/refresh', 'HomeController@refreshLogs');
@@ -24,3 +26,4 @@ $route->group(['middleware' => ['auth']], function () use ($route) {
 
 
 $route->run();
+

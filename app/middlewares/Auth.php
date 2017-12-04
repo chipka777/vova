@@ -3,6 +3,9 @@
 
 namespace App\Middlewares;
 
+use Core\Auth as AuthGuard;
+
+use App\Models\User;
 
 class Auth
 {
@@ -12,13 +15,7 @@ class Auth
      */
     public function before()
     {
-
-        if (1) header('Location: /login');
-       /* $user = require_once (__DIR__ . '/../../config/user.php');
-        if(trim(strtolower($_SESSION['login']) != $user['auth']['login'])) {
-            header('Location: /auth');
-            exit;
-        }*/
+        if (!AuthGuard::user()) header('Location: login');
     }
 
 
