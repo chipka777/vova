@@ -14,11 +14,8 @@ class HomeController extends AController
      */
     public function index()
     {
-        $user = User::find(1);
+        $page = 'dashboard';
 
-        $user->name = "Admin";
-        
-        $user->update();
 
         /*$user = new User;
         $user->password = password_hash("admin", PASSWORD_DEFAULT);
@@ -29,7 +26,7 @@ class HomeController extends AController
         $user->din();*/
  
        
-        return $this->render('admin/index', ['layout' => 'admin']);
+        return $this->render('admin/index', ['layout' => 'admin', 'page' => $page]);
     }
 
 

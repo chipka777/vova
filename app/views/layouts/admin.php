@@ -14,8 +14,8 @@
 	<link rel="stylesheet" href="/assets/vendor/chartist/css/chartist-custom.css">
 	<!-- MAIN CSS -->
 	<link rel="stylesheet" href="/assets/css/main.css">
-	<!-- FOR DEMO PURPOSES ONLY. You should remove this in your project -->
-	<link rel="stylesheet" href="/assets/css/demo.css">
+
+	<link rel="stylesheet" href="/css/admin.css">
 	<!-- GOOGLE FONTS -->
 	<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700" rel="stylesheet">
 	<!-- ICONS -->
@@ -29,7 +29,7 @@
 		<!-- NAVBAR -->
 		<nav class="navbar navbar-default navbar-fixed-top">
 			<div class="brand">
-				<a href="/dashboard"><img src="/assets/img/logo-dark.png" alt="Klorofil Logo" class="img-responsive logo"></a>
+				<a href="/"><img src="/assets/img/logo-dark.png" alt="Klorofil Logo" class="img-responsive logo"></a>
 			</div>
 			<div class="container-fluid">
 				<div class="navbar-btn">
@@ -82,9 +82,9 @@
 			<div class="sidebar-scroll">
 				<nav>
 					<ul class="nav">
-						<li><a href="{{ url('dashboard') }}" class="{{ ($page == 'dashboard') ? 'active' : null }}"><i class="lnr lnr-home"></i> <span>Dashboard</span></a></li>
+						<li><a href="/" class="<?= ($data['page'] =='dashboard') ? 'active' : null ?>"><i class="lnr lnr-home"></i> <span>Dashboard</span></a></li>
 						<li>
-							<a href="#subPages" class="{{ ($page == 'images') ? 'active' : null }}" data-toggle="collapse" class="collapsed"><i class="lnr lnr-picture"></i> <span>Departments</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
+							<a href="#subPages" class="<?= ($data['page'] =='deparment') ? 'active' : null ?>" data-toggle="collapse" class="collapsed"><i class="lnr lnr-picture"></i> <span>Departments</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
 							<div id="subPages" class="collapse ">
 								<ul class="nav">
 									<li><a href="{{ route('images.create') }}" class="">Add new department</a></li>
@@ -118,8 +118,6 @@
 	<script src="/assets/vendor/jquery.easy-pie-chart/jquery.easypiechart.min.js"></script>
 	<script src="/assets/vendor/chartist/js/chartist.min.js"></script>
 	<script src="/assets/scripts/klorofil-common.js"></script>
-
-    @yield('scripts')
 
 </body>
 
