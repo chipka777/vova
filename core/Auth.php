@@ -35,7 +35,7 @@ class Auth
         unset($_SESSION['user']);
     }
 
-    public static function __callStatic ( string $name , array $arguments )
+    public static function __callStatic ( $name ,  $arguments )
     {
         $class = __CLASS__;
 
