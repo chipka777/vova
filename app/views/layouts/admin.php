@@ -14,6 +14,7 @@
 	<link rel="stylesheet" href="/assets/vendor/chartist/css/chartist-custom.css">
 	<!-- MAIN CSS -->
 	<link rel="stylesheet" href="/assets/css/main.css">
+	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap.min.css">
 
 	<link rel="stylesheet" href="/css/admin.css">
 	<!-- GOOGLE FONTS -->
@@ -21,6 +22,7 @@
 	<!-- ICONS -->
 	<link rel="apple-touch-icon" sizes="76x76" href="/assets/img/apple-icon.png">
 	<link rel="icon" type="image/png" sizes="96x96" href="/assets/img/favicon.png">
+	<script src="/assets/vendor/jquery/jquery.min.js"></script>
 </head>
 
 <body>
@@ -84,11 +86,11 @@
 					<ul class="nav">
 						<li><a href="/" class="<?= ($data['page'] =='dashboard') ? 'active' : null ?>"><i class="lnr lnr-home"></i> <span>Dashboard</span></a></li>
 						<li>
-							<a href="#subPages" class="<?= ($data['page'] =='deparment') ? 'active' : null ?>" data-toggle="collapse" class="collapsed"><i class="lnr lnr-picture"></i> <span>Departments</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
+							<a href="#subPages" data-toggle="collapse" class="<?= ($data['page'] =='department') ? 'active collapsed' : null ?>"><i class="lnr lnr-picture"></i> <span>Departments</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
 							<div id="subPages" class="collapse ">
 								<ul class="nav">
-									<li><a href="{{ route('images.create') }}" class="">Add new department</a></li>
-									<li><a href="{{ route('images.index') }}" class="">Edit existing images</a></li>
+									<li><a href="/department/create" class="">Add new department</a></li>
+									<li><a href="/department/list" class="">List of departments</a></li>
 									
 								</ul>
 							</div>
@@ -112,7 +114,7 @@
 		
 	<!-- END WRAPPER -->
 	<!-- Javascript -->
-	<script src="/assets/vendor/jquery/jquery.min.js"></script>
+
 	<script src="/assets/vendor/bootstrap/js/bootstrap.min.js"></script>
 	<script src="/assets/vendor/jquery-slimscroll/jquery.slimscroll.min.js"></script>
 	<script src="/assets/vendor/jquery.easy-pie-chart/jquery.easypiechart.min.js"></script>

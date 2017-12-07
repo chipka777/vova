@@ -44,6 +44,21 @@ abstract class AModel
         return $obj;
     }
 
+    public static function all()
+    {
+        $class = get_called_class();
+
+        $obj = new $class;
+
+        $query = 'SELECT * FROM `' . $obj->tableName . '`';
+
+        $params = [];
+
+        $result = $obj->getResult($query, $params)->fetchAll(\PDO::FETCH_OBJ);
+
+        return $result;
+    }
+
     public function andWhere($field, $operand, $value) 
     {
         if (empty($operand)) $operand = '=';
@@ -124,6 +139,8 @@ abstract class AModel
         $values = '(';
 
         foreach ($this->fillable as $field) {
+            if ($field == 'id' && !$this->$field) continue;
+
             $values .=  ' "' . htmlspecialchars($this->$field) . '",';
             $query .= " `$field`,";
         }
@@ -141,14 +158,23 @@ abstract class AModel
         $query = "UPDATE `$this->tableName` SET ";
 
         foreach ($this->fillable as $field) {
+            if ($field == 'id' && !$this->$field) continue;
             $query .= "`$field` = '" . htmlspecialchars($this->$field) . "',";
         }
 
         $query = substr($query, 0, -1);        
         $query.= " WHERE id = " . $this->id;
 
+
         return $this->getResult($query)->rowCount();
         
+    }
+
+    public function destroy()
+    {
+        $query = "DELETE FROM `$this->tableName` WHERE ID = $this->id";
+        
+        return $this->getResult($query)->rowCount();
     }
 
     /**

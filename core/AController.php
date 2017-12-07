@@ -63,6 +63,11 @@ abstract class AController
 
     public function redirect($url, $data = false)
     {
+        if ($data) {
+            foreach ($_POST as $key => $value ) {
+                $this->flashMsg($key, $value );
+            }
+        }
         header('Location: ' . $url);
     }
 

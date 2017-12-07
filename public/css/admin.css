@@ -2,3 +2,10 @@
     padding-top: 25px !important;
     padding-bottom: 0px !important;
 }
+
+.btn-add {
+    padding: 17px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    font-size: 16px !important;
+}
