@@ -10,6 +10,17 @@ abstract class AModel
 
     protected $queryString;
 
+    public static function count()
+    {
+        $class =  get_called_class();
+
+        $obj = new $class;
+
+        $query = "SELECT COUNT(*) FROM $obj->tableName";
+
+        return $obj->getResult($query)->fetch()["COUNT(*)"];
+    }
+
     public static function find($id) 
     {
         $class =  get_called_class();
@@ -69,7 +80,7 @@ abstract class AModel
         return $this;
     }
 
-    public function get()
+    public function get($style = \PDO::FETCH_ASSOC)
     {
         $query = 'SELECT * FROM `' . $this->tableName . '`' . $this->queryString;
 
@@ -80,7 +91,7 @@ abstract class AModel
             $params[':' . $par[0]] = $par[1]; 
         }
 
-        $result = $this->getResult($query, $params)->fetchAll();
+        $result = $this->getResult($query, $params)->fetchAll($style);
 
         return $result;   
          
@@ -177,34 +188,6 @@ abstract class AModel
         return $this->getResult($query)->rowCount();
     }
 
-    /**
-     * @param array $fields
-     * @param array $data
-     * @return mixed
-     */
-    public function insertMultipleRows($fields, $data)
-    {
-        $queryString = 'INSERT INTO `' . $this->tableName . '` (';
-
-        foreach ($fields as $key => $value) {
-            $queryString .= '`' . $value . '`,';
-        }
-
-        $queryString = substr($queryString, 0, -1);
-        $queryString .= ') VALUES ';
-
-        foreach ($data as $item) {
-            $queryString .= '(';
-            foreach ($item as $value) {
-                $queryString .= '"' . $value . '",';
-            }
-            $queryString = substr($queryString, 0, -1);
-            $queryString .= '),';
-        }
-        $queryString = substr($queryString, 0, -1);
-
-        return $this->getResult($queryString)->rowCount();
-    }
 
     /**
      * Executing SQL request

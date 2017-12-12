@@ -86,7 +86,7 @@
 					<ul class="nav">
 						<li><a href="/" class="<?= ($data['page'] =='dashboard') ? 'active' : null ?>"><i class="lnr lnr-home"></i> <span>Dashboard</span></a></li>
 						<li>
-							<a href="#subPages" data-toggle="collapse" class="<?= ($data['page'] =='department') ? 'active collapsed' : null ?>"><i class="lnr lnr-picture"></i> <span>Departments</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
+							<a href="#subPages" data-toggle="collapse" class="<?= ($data['page'] =='department') ? 'active collapsed' : null ?>"><i class="fa fa-university" aria-hidden="true"></i> <span>Departments</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
 							<div id="subPages" class="collapse ">
 								<ul class="nav">
 									<li><a href="/department/create" class="">Add new department</a></li>
@@ -95,7 +95,7 @@
 								</ul>
 							</div>
 						</li>
-						<li><a href="{{ url('dashboard/categories') }}" class="{{ ($page == 'categories') ? 'active' : null }}"><i class="lnr lnr-list"></i> <span>Categories</span></a></li>
+						<li><a href="/packages" class="<?= ($data['page'] =='package') ? 'active' : null ?>"><i class="fa fa-tasks" aria-hidden="true"></i> <span>Packages</span></a></li>
 					</ul>
 				</nav>
 			</div>
@@ -107,7 +107,7 @@
 			<div class="clearfix"></div>
 			<footer>
 				<div class="container-fluid">
-					<p class="copyright">&copy; 2017 <a href="{{ route('main') }}" target="_blank">Badgem</a>. All Rights Reserved.</p>
+					<p class="copyright">&copy; 2017 <a href="/" target="_blank">Mail Boards</a>. All Rights Reserved.</p>
 				</div>
 			</footer>
 		</div>
