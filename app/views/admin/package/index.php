@@ -208,6 +208,12 @@
 <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.2.2/jquery.form.min.js" integrity="sha384-FzT3vTVGXqf7wRfy8k4BiyzvbNfeYjK+frTVqZeNDFl8woCbF0CYG6g2fMEFFo/i" crossorigin="anonymous"></script>
 <script src="/js/package.js"></script>
+
+<script>
+    $(document).ready(function() {
+        $('#departments').DataTable();
+    } );
+</script>
 <script>
     $(document).ready(function() {
         var dep_id = <?=$_GET['dep']?>;

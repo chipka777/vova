@@ -17,6 +17,7 @@
             </label> -->
         </div>
         <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Sign in</button>
+        <a href="/main" > <- Main</a>
     </form><!-- /form -->
     <!--<a href="#" class="forgot-password">
         Forgot the password?

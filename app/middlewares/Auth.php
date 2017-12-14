@@ -15,7 +15,7 @@ class Auth
      */
     public function before()
     {
-        if (!AuthGuard::user()) header('Location: login');
+        if (!AuthGuard::user()) header('Location: main');
     }
 
 

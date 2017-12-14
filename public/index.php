@@ -10,6 +10,8 @@ $route = new Core\Route;
 $route->get('/login', 'AuthController@show');
 $route->post('/login', 'AuthController@login');
 
+$route->get('/main', 'MainController@index');
+
 
 $route->group(['middleware' => ['auth']], function () use ($route) {
     $route->get('/', 'HomeController@index');
