@@ -1,10 +1,10 @@
--- phpMyAdmin SQL Dump
+﻿-- phpMyAdmin SQL Dump
 -- version 4.6.5.2
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3308
 -- Время создания: Дек 12 2017 г., 17:04
--- Версия сервера: 5.7.16
+-- Версия сервера: 5.7.16qq
 -- Версия PHP: 5.6.29
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
